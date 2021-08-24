@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable List in HTML & CSS</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Contacts</h2>
+            </div>
+            <div class="card-content">
+                <div v-for="(contact, i) in contacts" :key="contact.name" class="contact">
+                    <div><img :src="contact.image" class="profile-image" /></div>
+
+                    <div class="names">
+                        <h3>{{contact.name}}</h3>
+                        <p class="status">{{ contact.status }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="http://chancejs.com/chance.min.js"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    contacts: []
+                }
+            },
+            mounted() {
+                const chance = new Chance()
+                this.contacts = []
+                for (let i = 0; i < 10; i++) {
+                    this.contacts.push({
+                        name: chance.name(),
+                        status: (i % 2 === 0) ? 'Online' : 'Offline',
+                        image: 'https://picsum.photos/200?random=' + i
+                    })
+                }
+            }
+        }
+        Vue.createApp(App).mount("#app")
+    </script>
+</body>
+
+</html>
